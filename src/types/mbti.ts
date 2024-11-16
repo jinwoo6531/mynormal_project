@@ -2,7 +2,7 @@ type MBTIType = 'E' | 'I' | 'S' | 'N' | 'T' | 'F' | 'J' | 'P';
 
 export type Answer = -2 | -1 | 0 | 1 | 2;
 
-interface Question {
+export interface Question {
   disagree: MBTIType;
   agree: MBTIType;
   text: string;
