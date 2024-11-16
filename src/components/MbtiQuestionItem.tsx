@@ -29,7 +29,7 @@ const MbtiQuestionItem: React.FC<QuestionItemProps> = ({
   </QuestionContainer>
 );
 
-export default MbtiQuestionItem;
+export default React.memo(MbtiQuestionItem);
 
 const QuestionContainer = styled.div`
   border-bottom: 1px solid lightgray;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { questions } from '@/constants/mbti';
 import MbtiQuestionItem from '@/components/MbtiQuestionItem';
@@ -10,12 +10,15 @@ const Mbti = () => {
   const [answers, setAnswers] = useState<Record<number, Answer>>({});
   const [mbti, setMbti] = useState('');
 
-  const handleAnswerChange = (questionIndex: number, value: Answer) => {
-    setAnswers((prev) => ({
-      ...prev,
-      [questionIndex]: value,
-    }));
-  };
+  const handleAnswerChange = useCallback(
+    (questionIndex: number, value: Answer) => {
+      setAnswers((prev) => ({
+        ...prev,
+        [questionIndex]: value,
+      }));
+    },
+    []
+  );
 
   const handleFormSubmit = () => {
     const isAnsweredCheck = questions.some(

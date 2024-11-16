@@ -8,8 +8,6 @@ const shiftArrayElements = (data: number[], selected: number[]): number[] => {
 
   selected.forEach((item) => {
     const index = result.indexOf(item);
-    console.log('result[index] 현재 선택된 요소', result[index]);
-    console.log('result[index - 1] 왼쪽요소', result[index - 1]);
 
     // index가 0보다 크고 왼쪽 요소가 selected에 포함되지 않은 경우에만 스왑
     if (index > 0 && !selected.includes(result[index - 1])) {
@@ -129,11 +127,10 @@ const SubmitButton = styled.button<{
   border?: string;
   color?: string;
 }>`
-  display: block;
   padding: 15px 30px;
   background-color: ${({ bgColor }) => bgColor};
   color: ${({ color }) => color};
-  border: 1px solid ${({ border }) => border || 'transparent'};
+  border: 1px solid ${({ border }) => border};
   border-radius: 5px;
   cursor: pointer;
 `;
