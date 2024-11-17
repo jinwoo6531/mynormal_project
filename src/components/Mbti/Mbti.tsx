@@ -1,11 +1,18 @@
 import React, { useCallback, useState } from 'react';
-import styled from 'styled-components';
-import { questions } from '@/constants/mbti';
-import MbtiQuestionItem from '@/components/MbtiQuestionItem';
-import { Answer } from '@/types/mbti';
 import { useRouter } from 'next/router';
+import {
+  Main,
+  Section,
+  Title,
+  ButtonContainer,
+  SubmitButton,
+  ResultTitle,
+} from './Mbti.styles';
+import MbtiQuestionItem from '@/components/MbtiQuestionItem/MbtiQuestionItem';
+import { questions } from '@/constants/mbti';
+import { Answer } from '@/types/mbti';
 
-const Mbti = () => {
+const Mbti: React.FC = () => {
   const router = useRouter();
   const [answers, setAnswers] = useState<Record<number, Answer>>({});
   const [mbti, setMbti] = useState('');
@@ -43,7 +50,7 @@ const Mbti = () => {
 
     const mbtiResult = [
       mbtiScores.E >= mbtiScores.I ? 'E' : 'I',
-      mbtiScores.S <= mbtiScores.N ? 'N' : 'S',
+      mbtiScores.N >= mbtiScores.S ? 'N' : 'S',
       mbtiScores.F >= mbtiScores.T ? 'F' : 'T',
       mbtiScores.P >= mbtiScores.J ? 'P' : 'J',
     ].join('');
@@ -61,8 +68,8 @@ const Mbti = () => {
       <Section>
         {mbti ? (
           <>
-            <Title>당신의 MBTI 결과는 {mbti}입니다!</Title>
-            <SubmitButton onClick={resetForm} bgColor='#fff' color='#000'>
+            <ResultTitle>당신의 MBTI 결과는 {mbti}입니다!</ResultTitle>
+            <SubmitButton onClick={resetForm} bgColor='#000' color='#fff'>
               다시 하기
             </SubmitButton>
           </>
@@ -103,42 +110,3 @@ const Mbti = () => {
 };
 
 export default Mbti;
-
-const Main = styled.main`
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-`;
-
-const Section = styled.section`
-  max-width: 500px;
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-`;
-
-const Title = styled.h2`
-  text-align: center;
-  margin-bottom: 30px;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  gap: 16px;
-  margin: 30px auto 0;
-`;
-
-const SubmitButton = styled.button<{
-  bgColor: string;
-  border?: string;
-  color?: string;
-}>`
-  display: block;
-  padding: 15px 30px;
-  background-color: ${({ bgColor }) => bgColor};
-  color: ${({ color }) => color};
-  border: 1px solid ${({ border }) => border};
-  border-radius: 5px;
-  cursor: pointer;
-`;

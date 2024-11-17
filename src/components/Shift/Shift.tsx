@@ -1,24 +1,17 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { useRouter } from 'next/router';
+import {
+  Main,
+  Section,
+  Title,
+  Item,
+  ButtonContainer,
+  SubmitButton,
+} from './Shift.styles';
 import { ArrayItem } from '@/types/shift';
+import { shiftArrayElements } from '@/utils/shiftUils';
 
-const shiftArrayElements = (data: number[], selected: number[]): number[] => {
-  const result = [...data];
-
-  selected.forEach((item) => {
-    const index = result.indexOf(item);
-
-    // index가 0보다 크고 왼쪽 요소가 selected에 포함되지 않은 경우에만 스왑
-    if (index > 0 && !selected.includes(result[index - 1])) {
-      [result[index - 1], result[index]] = [result[index], result[index - 1]];
-    }
-  });
-
-  return result;
-};
-
-const Shift = () => {
+const Shift: React.FC = () => {
   const router = useRouter();
   const [items, setItems] = useState<ArrayItem[]>([
     { id: 0, value: 1, isSelected: false },
@@ -56,7 +49,7 @@ const Shift = () => {
   return (
     <Main>
       <Section>
-        <Title>배열 요소 이동</Title>
+        <Title>순서 올리기</Title>
         {items.map((item) => (
           <Item key={item.id}>
             <input
@@ -77,7 +70,7 @@ const Shift = () => {
             홈으로
           </SubmitButton>
           <SubmitButton onClick={handleShift} bgColor='#000' color='#fff'>
-            순서 올리기
+            올리기
           </SubmitButton>
         </ButtonContainer>
       </Section>
@@ -86,51 +79,3 @@ const Shift = () => {
 };
 
 export default Shift;
-
-const Main = styled.main`
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-`;
-
-const Section = styled.section`
-  max-width: 500px;
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-`;
-
-const Title = styled.h2`
-  text-align: center;
-  margin-bottom: 30px;
-`;
-
-const Item = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-
-  input {
-    margin-right: 10px;
-  }
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  gap: 16px;
-  margin: 30px auto 0;
-`;
-
-const SubmitButton = styled.button<{
-  bgColor: string;
-  border?: string;
-  color?: string;
-}>`
-  padding: 15px 30px;
-  background-color: ${({ bgColor }) => bgColor};
-  color: ${({ color }) => color};
-  border: 1px solid ${({ border }) => border};
-  border-radius: 5px;
-  cursor: pointer;
-`;
