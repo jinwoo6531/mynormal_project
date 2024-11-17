@@ -61,6 +61,9 @@ npm run dev
 
 ```bash
 ├── /components
+│ ├── /Home
+│ │ ├── Home.tsx
+│ │ ├── Home.styles.ts
 │ ├── /Shift
 │ │ ├── Shift.tsx
 │ │ ├── Shift.styles.ts
